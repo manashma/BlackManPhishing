@@ -32,5 +32,5 @@ cd BlackMan
 chmod +x termux_install.sh
 ./termux_install.sh
 ```
-## Author : Manash Mahanta 
-## Contact Me : beastbattle24@gmail.com
+#### Author : Manash Mahanta 
+#### Contact Me : beastbattle24@gmail.com
