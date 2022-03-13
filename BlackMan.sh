@@ -331,11 +331,11 @@ checkfound() {
     done 
 }
 Need() {
-    command -v php > /dev/null 2>&1 || { echo >&2 "I require php but it's not installed. Install it. Please Run install.sh "; }
-    command -v wget > /dev/null 2>&1 || { echo >&2 "I require wget but it's not installed. Install it. Please Run install.sh "; }
-    command -v unzip > /dev/null 2>&1 || { echo >&2 "I require unzip but it's not installed. Install it. Please Run install.sh "; }
-    command -v curl > /dev/null 2>&1 || { echo >&2 "I require curl but it's not installed. Install it. Please Run install.sh "; }
-    command -v figlet toilet > /dev/null 2>&1 || { echo >&2 "I require figlet toilet but it's not installed. Install it. Please Run install.sh "; }
+    command -v php > /dev/null 2>&1 || { echo >&2 "I require php but it's not installed. Install it. Please Run install.sh "; exit 1 ; }
+    command -v wget > /dev/null 2>&1 || { echo >&2 "I require wget but it's not installed. Install it. Please Run install.sh "; exit 1 ; }
+    command -v unzip > /dev/null 2>&1 || { echo >&2 "I require unzip but it's not installed. Install it. Please Run install.sh "; exit 1 ; }
+    command -v curl > /dev/null 2>&1 || { echo >&2 "I require curl but it's not installed. Install it. Please Run install.sh "; exit 1 ; }
+    command -v figlet toilet > /dev/null 2>&1 || { echo >&2 "I require figlet toilet but it's not installed. Install it. Please Run install.sh "; exit 1 ; }
 }
 Banner() {
     clear
