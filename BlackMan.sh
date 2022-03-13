@@ -191,6 +191,7 @@ Main() {
     
     elif [[ $option == 99 ]]; then
     sleep 1
+    printf "${RED}Good Bye ${GREEN}^_^"
     exit
     
     else 
