@@ -284,7 +284,7 @@ ip_location() {
     printf "  ${ORANGE}  Currency >>     ${GREEN}   $usercurrency\n"
     printf "  ${ORANGE}  Languages >>    ${GREEN}   $userlanguage\n"
     printf "  ${ORANGE}  Calling Code >> ${GREEN}   $usercalling\n"
-    printf "  ${ORANGE}  Google Location >> ${CYAN}  https://maps.google.com/?q=$userlat,$userlon\e[0m\n"
+    printf "  ${ORANGE}  Google Location >> ${CYAN} https://maps.google.com/?q=$userlat,$userlon\e[0m\n"
     exit 1
 }
 
