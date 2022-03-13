@@ -19,7 +19,7 @@ The tool is completely free now
 
 ### Usage:
 ```
-git clone https://github.com/manashma/BlackManPhishing /BlackMan
+git clone https://github.com/manashma/BlackManPhishing BlackMan
 cd BlackMan
 bash BlackMan.sh
 ```
