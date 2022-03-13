@@ -25,7 +25,7 @@ Main() {
     printf "          ${RED}[14]${CYAN} Pinterest\e[0m      ${RED}[30]${CYAN} Steam  \e[0m                              \n"
     printf "          ${RED}[15]${CYAN} Apple ID\e[0m       ${RED}[31]${CYAN} Bitcoin  \e[0m                             \n"
     printf "          ${RED}[16]${CYAN} Verizon\e[0m        ${RED}[32]${CYAN} Playstation  \e[0m           \e[1;94m                  \n"
-
+    printf "\n"
     read -p "${YELLOW}Choose an option -->> ${GRAY}" option
 
     if [[ $option == 1 ]]; then
