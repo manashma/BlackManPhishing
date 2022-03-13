@@ -19,7 +19,7 @@
 11. Now with this tool you will get the location of the Victim
 #### The tool is completely free now 
 
-### Usage:
+### Linux Install:
 ```
 git clone https://github.com/manashma/BlackManPhishing BlackMan
 cd BlackMan
