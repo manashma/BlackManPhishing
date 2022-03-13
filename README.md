@@ -3,7 +3,7 @@
 
 ---------------------------------------------
 ### UPDATES :
-## Added 10 new websites from the Pro version and add useriplocation !
+# Added 10 new websites from the Pro version and add useriplocation !
 1. google new login page 
 2. Netflix
 3. Linkdin
@@ -14,7 +14,7 @@
 8. Paypal
 9. Amazon
 10. Yahoo
-Now with this tool you will get the location of the Victim
+11.Now with this tool you will get the location of the Victim
 The tool is completely free now 
 
 ### Usage:
