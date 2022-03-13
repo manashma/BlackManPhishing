@@ -5,7 +5,7 @@
 
 ---------------------------------------------
 ### UPDATES :
-#### Added 12 new websites from the Pro version and add useriplocation !
+#### Added 13 new websites from the Pro version and add useriplocation !
 1. google new login page 
 2. Netflix
 3. Linkdin
@@ -17,7 +17,9 @@
 9. Amazon
 10. Yahoo
 11. Stackoverflow
-12. Now with this tool you will get the location of the Victim
+12. Samsung Id
+13. New Custom Page
+14. Now with this tool you will get the location of the Victim
 #### The tool is completely free now 
 
 ### Linux Install:
