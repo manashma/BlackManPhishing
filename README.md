@@ -14,7 +14,7 @@
 8. Paypal
 9. Amazon
 10. Yahoo
-11.Now with this tool you will get the location of the Victim
+11. Now with this tool you will get the location of the Victim
 The tool is completely free now 
 
 ### Usage:
