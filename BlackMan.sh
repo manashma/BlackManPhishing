@@ -22,10 +22,10 @@ Main() {
     printf "          ${RED}[11]${CYAN} Wordpress\e[0m      ${RED}[27]${CYAN} devianART   \e[0m            \n"
     printf "          ${RED}[12]${CYAN} Microsoft\e[0m      ${RED}[28]${CYAN} Wi-Fi   \e[0m                \n"
     printf "          ${RED}[13]${CYAN} IGFollowers\e[0m    ${RED}[29]${CYAN} PayPal  \e[0m                \n"
-    printf "          ${RED}[14]${CYAN} Pinterest\e[0m      ${RED}[30]${CYAN} Steam  \e[0m                              \n"
-    printf "          ${RED}[15]${CYAN} Apple ID\e[0m       ${RED}[31]${CYAN} Bitcoin  \e[0m                             \n"
-    printf "          ${RED}[16]${CYAN} Verizon\e[0m        ${RED}[32]${CYAN} Playstation  \e[0m           \e[1;94m                  \n"
-
+    printf "          ${RED}[14]${CYAN} Pinterest\e[0m      ${RED}[30]${CYAN} Steam  \e[0m                 \n"
+    printf "          ${RED}[15]${CYAN} Apple ID\e[0m       ${RED}[31]${CYAN} Bitcoin  \e[0m               \n"
+    printf "          ${RED}[16]${CYAN} Verizon\e[0m        ${RED}[32]${CYAN} Playstation  \e[0m           \e[1;94m \n"
+    printf "\n"
     read -p "${YELLOW}Choose an option -->> ${GRAY}" option
 
     if [[ $option == 1 ]]; then
@@ -175,7 +175,7 @@ Main() {
     else 
     printf "${RED}Invaild Oprion"
     sleep 1
-    { clear ; Benner ; Main ; }
+    { clear ; Banner ; Main ; }
     fi
 }
 
@@ -331,11 +331,11 @@ checkfound() {
     done 
 }
 Need() {
-    command -v php > /dev/null 2>&1 || { echo >&2 "I require php but it's not installed. Install it. Please Run install."; }
-    command -v wget > /dev/null 2>&1 || { echo >&2 "I require wget but it's not installed. Install it. Please Run install."; }
-    command -v unzip > /dev/null 2>&1 || { echo >&2 "I require unzip but it's not installed. Install it. Please Run install."; }
-    command -v curl > /dev/null 2>&1 || { echo >&2 "I require curl but it's not installed. Install it. Please Run install."; }
-    command -v figlet toilet > /dev/null 2>&1 || { echo >&2 "I require figlet toilet but it's not installed. Install it. Please Run install."; }
+    command -v php > /dev/null 2>&1 || { echo >&2 "I require php but it's not installed. Install it. Please Run install.sh "; }
+    command -v wget > /dev/null 2>&1 || { echo >&2 "I require wget but it's not installed. Install it. Please Run install.sh "; }
+    command -v unzip > /dev/null 2>&1 || { echo >&2 "I require unzip but it's not installed. Install it. Please Run install.sh "; }
+    command -v curl > /dev/null 2>&1 || { echo >&2 "I require curl but it's not installed. Install it. Please Run install.sh "; }
+    command -v figlet toilet > /dev/null 2>&1 || { echo >&2 "I require figlet toilet but it's not installed. Install it. Please Run install.sh "; }
 }
 Banner() {
     clear
