@@ -32,5 +32,6 @@ cd BlackMan
 chmod +x termux_install.sh
 ./termux_install.sh
 ```
-#### Author : Manash Mahanta 
+#### Coded by: @thelinuxchoice (https://github.com/thelinuxchoice/blackeye)
+#### Modified by : Manash Mahanta (https://github.com/manashma/BlackManPhishing)
 #### Contact Me : beastbattle24@gmail.com
