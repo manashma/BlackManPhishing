@@ -23,7 +23,14 @@
 ```
 git clone https://github.com/manashma/BlackManPhishing BlackMan
 cd BlackMan
-bash BlackMan.sh
+sudo bash install.sh
+```
+### Termux Install:
+```
+git clone https://github.com/manashma/BlackManPhishing BlackMan
+cd BlackMan
+chmod +x termux_install.sh
+./termux_install.sh
 ```
 ## Author : Manash Mahanta 
 ## Contact Me : beastbattle24@gmail.com
