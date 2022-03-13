@@ -279,7 +279,7 @@ ip_location() {
     printf "  ${ORANGE}  Longitude >>    ${GREEN}    $userlon\n"
     printf "  ${ORANGE}  Time Zone >>    ${GREEN}    $usertime\n"
     printf "  ${ORANGE}  Postal Code >>  ${GREEN}    $userpostal\n"
-    printf "  ${ORANGE}  Carrier >>          ${GREEN}   $userisp\n"
+    printf "  ${ORANGE}  Carrier >>      ${GREEN}   $userisp\n"
     printf "  ${ORANGE}  Country Code >> ${GREEN}   $usercountrycode\n"
     printf "  ${ORANGE}  Currency >>     ${GREEN}   $usercurrency\n"
     printf "  ${ORANGE}  Languages >>    ${GREEN}   $userlanguage\n"
