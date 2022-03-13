@@ -280,7 +280,7 @@ start() {
     echo ""
     else
 
-    printf "${RED} Downloading Ngrok...\n"
+    printf "${RED}Downloading Ngrok...\n"
     arch=$(uname -a | grep -o 'arm' | head -n1)
     arch2=$(uname -a | grep -o 'Android' | head -n1)
     if [[ $arch == *'arm'* ]] || [[ $arch2 == *'Android'* ]] ; then
@@ -291,7 +291,7 @@ start() {
     chmod +x ngrok
     rm -rf ngrok-stable-linux-arm.zip
     else
-    printf "${GREEN}[!]${RED} Download error... Termux, run:${YELLOW} pkg install wget\n"
+    printf "${GREEN}[!]${RED}Download error... Termux, run:${YELLOW} pkg install wget\n"
     exit 1
     fi
     else
@@ -301,7 +301,7 @@ start() {
     chmod +x ngrok
     rm -rf ngrok-stable-linux-386.zip
     else
-    printf "${GREEN}[!]${RED} Download error... \e[0m\n"
+    printf "${GREEN}[!]${RED}Download error... \e[0m\n"
     exit 1
     fi
     fi
@@ -349,8 +349,6 @@ Banner() {
     printf "\n"
     date=$("date")
     printf "${GREEN}Started On -->> ${YELLOW}$date\e[0m\n"
-    log=~/Desktop
-    echo "Last time = $date " >$log/.log.txt 
     printf "\n"
 }
 Need
