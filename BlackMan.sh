@@ -309,7 +309,6 @@ tunnel() {
     arch2=$(uname -a | grep -o 'Android' | head -n1)
     if [[ $arch == *'arm'* ]] || [[ $arch2 == *'Android'* ]] ; then
     wget https://bin.equinox.io/c/4VmDzA7iaHb/ngrok-stable-linux-arm.zip > /dev/null 2>&1
-
     if [[ -e ngrok-stable-linux-arm.zip ]]; then
     unzip ngrok-stable-linux-arm.zip > /dev/null 2>&1
     chmod +x ngrok
