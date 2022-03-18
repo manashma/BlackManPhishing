@@ -18,8 +18,9 @@
 10. Yahoo
 11. Stackoverflow
 12. Samsung Id
-13. New Custom Page
-14. Now with this tool you will get the location of the Victim
+13. Tiktok
+14. New Custom Page
+15. Now with this tool you will get the location of the Victim
 #### The tool is completely free now 
 
 ### Linux Install:
