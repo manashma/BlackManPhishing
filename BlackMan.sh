@@ -260,8 +260,7 @@ ip_location() {
     userpostal=$(echo $ipaddripapicom | grep -Po '(?<="zip":)[^},]*' | tr -d '[]"' | sed 's/\(<[^>]*>\|<\/>\|{1|}\)//g')
     userisp=$(echo $ipaddripapico | grep -Po '(?<="org":)[^},]*' | tr -d '[]"' | sed 's/\(<[^>]*>\|<\/>\|{1|}\)//g')
     usercalling=$(echo $ipaddripapico | grep -Po '(?<="country_calling_code":)[^},]*' | tr -d '[]"' | sed 's/\(<[^>]*>\|<\/>\|{1|}\)//g')
-    printf "${CYAN} Victim IP Details ....\n"
-    printf "${RED}-----------------------------------------------------------------------\n"
+    printf "${RED}-----------------------------IP Details--------------------------------\n"
     printf "\n"
     printf "  ${ORANGE}  City            >>         ${GREEN}   $usercity\n"
     printf "  ${ORANGE}  Region          >>         ${GREEN}   $useregion\n"
@@ -286,6 +285,7 @@ start() {
     rm -rf sites/$website/usernames.txt
 
     fi
+    printf "\n"
     printf "${GREEN}[1]${ORANGE} Localhost\n"
     printf "${GREEN}[2]${ORANGE} Ngrok\n"
     printf "\n"
