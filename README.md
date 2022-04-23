@@ -5,28 +5,33 @@
 
 ---------------------------------------------
 ### UPDATES :
-#### Added 13 new websites from the Pro version and add useriplocation !
+#### Added 14 new websites from the Pro version and add useriplocation !
 1. google new login page 
 2. Netflix
 3. Linkdin
-4. Instagram
-5. Apple ID
-6. Spotify
-7. Bitcoin
-8. Paypal
-9. Amazon
-10. Yahoo
-11. Stackoverflow
-12. Samsung Id
-13. Tiktok
-14. New Custom Page
-15. Now with this tool you will get the location of the Victim
+4. Facebook New Login Page
+5. Instagram
+6. Apple ID
+7. Spotify
+8. Bitcoin
+9. Paypal
+10. Amazon
+11. Yahoo
+12. Stackoverflow
+13. Samsung Id
+14. Tiktok
+15. New Custom Page
+16. Now with this tool you will get the location of the Victim
 #### The tool is completely free now 
 
 ### Linux Install:
 ```
 git clone https://github.com/manashma/BlackManPhishing BlackMan
+```
+```
 cd BlackMan
+```
+```
 sudo bash install.sh
 ```
 ### Termux Install:
