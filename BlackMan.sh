@@ -201,7 +201,7 @@ Main() {
     else 
     printf "${RED}Invaild Oprion"
     sleep 1
-    { clear ; Benner ; Main ; }
+    { clear ; Banner ; Main ; }
     fi
 }
 
