@@ -52,3 +52,10 @@ chmod +x termux_install.sh
 ##### Coded by: @thelinuxchoice (https://github.com/thelinuxchoice/blackeye)
 ##### Full Modified by : Manash Mahanta (https://github.com/manashma/BlackManPhishing)
 ##### Contact Me : beastbattle24@gmail.com
+
+### Support the Project
+If you find this project helpful and want to support its development, consider making a donation. Your contributions will help keep the project alive and improve it further.
+
+**Donate via PayPal:** [PayPal Donation Link](https://paypal.me/dorazombiieegetbook?country.x=IN&locale.x=en_GB)
+
+**Donate via Bitcoin:** 1DxqMqA8VruAw7Hjv1djYpp2G2vFBtLuXa
