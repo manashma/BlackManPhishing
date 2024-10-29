@@ -22,6 +22,11 @@
 14. Tiktok
 15. New Custom Page
 16. Now with this tool you will get the location of the Victim
+
+#### Change ngrok to SSH Serveo [no signup and no limitation] & fix for multiple targets
+- Replaced ngrok with Serveo for SSH tunneling to remove signup requirements and limitations, enabling usage without registration.
+- Enhanced support for multiple simultaneous targets.
+  
 #### The tool is completely free now 
 
 ### Linux Install:
