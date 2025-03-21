@@ -28,19 +28,25 @@
 
 #### The tool is completely free now
 
-### Linux Install:
-```git clone https://github.com/manashma/BlackManPhishing BlackMan
-cd BlackMan
-sudo bash install.sh```
-
-### Termux Install:
-```git clone https://github.com/manashma/BlackManPhishing BlackMan
-cd BlackMan
-chmod +x termux_install.sh
-./termux_install.sh```
 
 ### Screenshot
 ![github-small](/image/Screenshot1.jpg)
+
+
+### Linux Install:
+```
+git clone https://github.com/manashma/BlackManPhishing BlackMan
+cd BlackMan
+sudo bash install.sh
+```
+
+### Termux Install:
+```
+git clone https://github.com/manashma/BlackManPhishing BlackMan
+cd BlackMan
+chmod +x termux_install.sh
+./termux_install.sh
+```
 
 ##### Coded by: @thelinuxchoice (https://github.com/thelinuxchoice/blackeye)
 ##### Full Modified by : Manash Mahanta (https://github.com/manashma/BlackManPhishing)
