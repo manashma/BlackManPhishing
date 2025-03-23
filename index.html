@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BlackManPhishing - Blackeye version 2.0</title>
+    <style>
+        :root {
+            --primary: #0f0f23;
+            --secondary: #00ff00;
+            --highlight: #ff3e3e;
+            --text: #f8f8f8;
+            --dark: #0a0a18;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Courier New', monospace;
+        }
+        
+        body {
+            background-color: var(--primary);
+            color: var(--text);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+            position: relative;
+        }
+        
+        header {
+            text-align: center;
+            padding: 40px 0;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        h1 {
+            font-size: 3.5rem;
+            margin-bottom: 10px;
+            color: var(--secondary);
+            text-shadow: 0 0 10px rgba(0, 255, 0, 0.7);
+            animation: glow 1.5s infinite alternate;
+        }
+        
+        h2 {
+            font-size: 1.8rem;
+            margin-bottom: 30px;
+            color: var(--highlight);
+        }
+        
+        h3 {
+            font-size: 1.5rem;
+            margin: 30px 0 15px;
+            border-bottom: 2px solid var(--secondary);
+            padding-bottom: 5px;
+            display: inline-block;
+        }
+        
+        h4 {
+            font-size: 1.3rem;
+            margin: 20px 0 10px;
+            color: var(--highlight);
+        }
+        
+        .logo-container {
+            margin: 20px auto;
+            max-width: 300px;
+            border: 2px solid var(--secondary);
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 0 20px rgba(0, 255, 0, 0.5);
+        }
+        
+        .logo {
+            width: 100%;
+            height: auto;
+            animation: pulse 2s infinite;
+        }
+        
+        .screenshot {
+            width: 100%;
+            max-width: 800px;
+            border-radius: 10px;
+            margin: 20px auto;
+            display: block;
+            border: 2px solid var(--secondary);
+            box-shadow: 0 0 20px rgba(0, 255, 0, 0.5);
+            transition: transform 0.3s;
+        }
+        
+        .screenshot:hover {
+            transform: scale(1.02);
+        }
+        
+        .features {
+            background-color: var(--dark);
+            padding: 20px;
+            border-radius: 10px;
+            margin: 30px 0;
+            border-left: 4px solid var(--secondary);
+        }
+        
+        .features ol {
+            margin-left: 30px;
+        }
+        
+        .features li {
+            margin: 10px 0;
+            position: relative;
+            padding-left: 10px;
+        }
+        
+        .features li::before {
+            content: ">";
+            color: var(--secondary);
+            position: absolute;
+            left: -15px;
+        }
+        
+        .code-block {
+            background-color: #1e1e3f;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            overflow-x: auto;
+            border-left: 4px solid var(--highlight);
+            position: relative;
+        }
+        
+        .code-block code {
+            color: #f8f8f2;
+            font-family: 'Courier New', monospace;
+            font-size: 1rem;
+            display: block;
+        }
+        
+        .code-block::before {
+            content: "$ Terminal";
+            color: var(--highlight);
+            position: absolute;
+            top: -10px;
+            left: 20px;
+            background-color: var(--dark);
+            padding: 0 10px;
+            font-size: 0.8rem;
+        }
+        
+        .divider {
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--secondary), transparent);
+            margin: 40px 0;
+            position: relative;
+        }
+        
+        .credit {
+            font-size: 0.9rem;
+            margin: 10px 0;
+            color: #aaa;
+        }
+        
+        .donate {
+            background-color: var(--dark);
+            padding: 20px;
+            border-radius: 10px;
+            margin: 30px 0;
+            border: 2px solid var(--highlight);
+            text-align: center;
+        }
+        
+        .donate h3 {
+            color: var(--highlight);
+            border-bottom: none;
+            margin-top: 0;
+        }
+        
+        .donate-button {
+            display: inline-block;
+            background-color: var(--highlight);
+            color: var(--dark);
+            padding: 10px 20px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: bold;
+            margin: 15px 0;
+            transition: all 0.3s;
+            animation: pulseBtn 2s infinite;
+        }
+        
+        .donate-button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 15px rgba(255, 62, 62, 0.7);
+        }
+        
+        .bitcoin {
+            font-family: monospace;
+            background-color: #1e1e3f;
+            padding: 10px;
+            border-radius: 5px;
+            margin: 15px 0;
+            word-break: break-all;
+        }
+        
+        @keyframes glow {
+            from {
+                text-shadow: 0 0 5px rgba(0, 255, 0, 0.7);
+            }
+            to {
+                text-shadow: 0 0 20px rgba(0, 255, 0, 1);
+            }
+        }
+        
+        @keyframes pulse {
+            0% {
+                opacity: 0.8;
+            }
+            50% {
+                opacity: 1;
+            }
+            100% {
+                opacity: 0.8;
+            }
+        }
+        
+        @keyframes pulseBtn {
+            0% {
+                box-shadow: 0 0 5px rgba(255, 62, 62, 0.7);
+            }
+            50% {
+                box-shadow: 0 0 15px rgba(255, 62, 62, 1);
+            }
+            100% {
+                box-shadow: 0 0 5px rgba(255, 62, 62, 0.7);
+            }
+        }
+        
+        .matrix-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            opacity: 0.1;
+            overflow: hidden;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 20px;
+            margin-top: 50px;
+            border-top: 1px solid var(--secondary);
+        }
+        
+        a {
+            color: var(--highlight);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        a:hover {
+            color: var(--secondary);
+            text-shadow: 0 0 5px rgba(0, 255, 0, 0.7);
+        }
+        
+        /* Responsive design */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.5rem;
+            }
+            
+            h2 {
+                font-size: 1.5rem;
+            }
+            
+            .container {
+                padding: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="matrix-bg" id="matrix"></div>
+    
+    <div class="container">
+        <header>
+            <h1>BlackManPhishing</h1>
+            <h2>Blackeye version 2.0</h2>
+            <div class="logo-container">
+                <img src="image/BlackMan.jpg" alt="BlackManPhishing Logo" class="logo">
+            </div>
+        </header>
+        
+        <div class="divider"></div>
+        
+        <section>
+            <h3>UPDATES</h3>
+            <div class="features">
+                <h4>Added 14 new websites from the Pro version and add useriplocation!</h4>
+                <ol>
+                    <li>Google new login page</li>
+                    <li>Netflix</li>
+                    <li>Linkdin</li>
+                    <li>Facebook New Login Page</li>
+                    <li>Instagram</li>
+                    <li>Apple ID</li>
+                    <li>Spotify</li>
+                    <li>Bitcoin</li>
+                    <li>Paypal</li>
+                    <li>Amazon</li>
+                    <li>Yahoo</li>
+                    <li>Stackoverflow</li>
+                    <li>Samsung Id</li>
+                    <li>Tiktok</li>
+                    <li>New Custom Page</li>
+                    <li>Now with this tool you will get the location of the Victim</li>
+                </ol>
+                
+                <h4>Change ngrok to SSH Serveo [no signup and no limitation] & fix for multiple targets</h4>
+                <ul>
+                    <li>Replaced ngrok with Serveo for SSH tunneling to remove signup requirements and limitations, enabling usage without registration.</li>
+                    <li>Enhanced support for multiple simultaneous targets.</li>
+                </ul>
+                
+                <h4>The tool is completely free now</h4>
+            </div>
+        </section>
+        
+        <section>
+            <h3>Screenshot</h3>
+            <img src="image/Screenshot1.jpg" alt="BlackManPhishing Screenshot" class="screenshot">
+        </section>
+        
+        <section>
+            <h3>Linux Install</h3>
+            <div class="code-block">
+                <code>git clone https://github.com/manashma/BlackManPhishing BlackMan</code>
+                <code>cd BlackMan</code>
+                <code>sudo bash install.sh</code>
+            </div>
+        </section>
+        
+        <section>
+            <h3>Termux Install</h3>
+            <div class="code-block">
+                <code>git clone https://github.com/manashma/BlackManPhishing BlackMan</code>
+                <code>cd BlackMan</code>
+                <code>chmod +x termux_install.sh</code>
+                <code>./termux_install.sh</code>
+            </div>
+        </section>
+        
+        <div class="divider"></div>
+        
+        <div class="credit">
+            <p>Coded by: <a href="https://github.com/thelinuxchoice/blackeye" target="_blank">@thelinuxchoice</a></p>
+            <p>Full Modified by: <a href="https://github.com/manashma/BlackManPhishing" target="_blank">Manash Mahanta</a></p>
+            <p>Contact Me: <a href="mailto:beastbattle24@gmail.com">beastbattle24@gmail.com</a></p>
+        </div>
+        
+        <section class="donate">
+            <h3>Support the Project</h3>
+            <p>If you find this project helpful and want to support its development, consider making a donation. Your contributions will help keep the project alive and improve it further.</p>
+            
+            <p><strong>Donate via PayPal:</strong></p>
+            <a href="https://paypal.me/dorazombiieegetbook?country.x=IN&locale.x=en_GB" class="donate-button" target="_blank">PayPal Donation</a>
+            
+            <p><strong>Donate via Bitcoin:</strong></p>
+            <div class="bitcoin">bc1q9p4j857k49spf0tc97f32m3ukdy4g6n8mpqgs8</div>
+            
+            <h4>Donate for New Version of BlackMan v3 [GUI interface; including more feature and phishing website ssl included]</h4>
+            <ul>
+                <li>$1 for pre-book [Paypal, BTC]</li>
+                <li>Above $5 for full source code</li>
+                <li>Please send an email to beastbattle24@gmail.com for prebook requests with donation confirmation</li>
+            </ul>
+        </section>
+        
+        <footer>
+            <p>© 2025 BlackManPhishing - A powerful phishing tool with multiple targets</p>
+        </footer>
+    </div>
+    
+    <script>
+        // Matrix background effect
+        const canvas = document.createElement('canvas');
+        const ctx = canvas.getContext('2d');
+        const matrixBg = document.getElementById('matrix');
+        
+        matrixBg.appendChild(canvas);
+        
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+        
+        const characters = "01";
+        const fontSize = 14;
+        const columns = canvas.width / fontSize;
+        
+        const drops = [];
+        for (let i = 0; i < columns; i++) {
+            drops[i] = 1;
+        }
+        
+        function draw() {
+            ctx.fillStyle = 'rgba(15, 15, 35, 0.05)';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            
+            ctx.fillStyle = '#00ff00';
+            ctx.font = fontSize + 'px monospace';
+            
+            for (let i = 0; i < drops.length; i++) {
+                const text = characters.charAt(Math.floor(Math.random() * characters.length));
+                ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+                
+                if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
+                    drops[i] = 0;
+                }
+                
+                drops[i]++;
+            }
+        }
+        
+        setInterval(draw, 33);
+        
+        // Update canvas size on window resize
+        window.addEventListener('resize', () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        });
+    </script>
+</body>
+</html>
