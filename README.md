@@ -52,6 +52,9 @@ chmod +x termux_install.sh
 ##### Full Modified by : Manash Mahanta (https://github.com/manashma/BlackManPhishing)
 ##### Contact Me : beastbattle24@gmail.com
 
+### Visitor Count
+[![Hits](https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fmanashma.github.io%2FBlackManPhishing%2F&count_bg=%2379C83D&title_bg=%23555555&icon=&icon_color=%23E7E7E7&title=hits&edge_flat=false)](https://hits.seeyoufarm.com)
+
 ### Support the Project
 If you find this project helpful and want to support its development, consider making a donation. Your contributions will help keep the project alive and improve it further.
 
